@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<label>Hours:</label>
+<input type="number" id="hours" min="0" value="0">
+<label>Minutes:</label>
+<input type="number" id="minutes" min="0" max="59" value="0">
+<label>Seconds:</label>
+<input type="number" id="seconds" min="0"  max="59" value="0">
+<button onclick="start()">start</button>
+<button onclick="pause()">pause</button>
+<button onclick="reset()">reset</button>
+</body>
+</html>
+<script>
+    let timeremaining;
+    let interval;
+    function start(){
+        let hours=Number(document.getElementById("hours").value);
+        let minutes=Number(document.getElementById("minutes").value);
+
+        let seconds=Number(document.getElementById("seconds").value);
+
+        timeremaining=hours*3600+minutes*60+seconds;
+
+        interval=setInterval(function(){
+            timeremaining--;
+            let hrs=Math.floor(timeremaining/3600);
+            let min=Math.floor((timeremaining%3600)/60);
+            let sec=timeremaining%60;
+
+            document.getElementById("hours").value=hrs;
+            document.getElementById("minutes").value=min;
+            document.getElementById("seconds").value=sec;
+
+            if(timeremaining <=0){
+                clearInterval(interval);
+                interval=null;
+            }
+            }, 1000);
+        }
+        function pause(){
+            clearinterval(interval);
+            interval=null;
+        }
+        function reset(){
+            pause();
+            document.getElementById("hours").value=0;
+            document.getElementById("minutes").value=0;
+            document.getElementById("seconds").value=0;
+        }
+        
+</script>
